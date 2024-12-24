@@ -15,4 +15,40 @@ export class ResponseDto<T> {
         this.message = message;
         this.request_id = requestId;
     }
+
+    /**
+     * 设置响应状态码
+     * @param code
+     */
+    setCode(code: number) {
+        this.code = code;
+        return this;
+    }
+
+    /**
+     * 设置数据
+     * @param data
+     */
+    setData(data: T) {
+        this.data = data;
+        return this;
+    }
+
+    /**
+     * 设置消息
+     * @param message
+     */
+    setMessage(message: string) {
+        this.message = message;
+        return this;
+    }
+
+    /**
+     * 设置请求 ID
+     * @param requestId
+     */
+    setRequestId(requestId: string) {
+        this.request_id = requestId;
+        return this;
+    }
 }

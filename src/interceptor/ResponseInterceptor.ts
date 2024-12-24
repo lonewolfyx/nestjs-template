@@ -5,6 +5,9 @@ import { CallHandler } from '@nestjs/common/interfaces/features/nest-interceptor
 import { Request } from 'express';
 import { ResponseDto } from '../dto/response.dto';
 
+/**
+ * 响应拦截器
+ */
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
