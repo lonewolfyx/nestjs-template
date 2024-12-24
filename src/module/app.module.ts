@@ -1,12 +1,15 @@
-import { Module } from '@nestjs/common';
-import { OauthModule } from './oauth/oauth.module';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import { AllExceptionFilter } from '../exception/all.exception.filter';
-import { ResponseInterceptor } from '../interceptor/ResponseInterceptor';
-import { DatabaseModule } from '../common/database/database.module';
+import {Module} from '@nestjs/common';
+import {OauthModule} from './oauth/oauth.module';
+import {APP_FILTER, APP_INTERCEPTOR} from '@nestjs/core';
+import {AllExceptionFilter} from '../exception/all.exception.filter';
+import {ResponseInterceptor} from '../interceptor/ResponseInterceptor';
+import {DatabaseModule} from '../common/database/database.module';
 
 @Module({
-    imports: [OauthModule, DatabaseModule],
+    imports: [
+        OauthModule,
+        DatabaseModule,
+    ],
     controllers: [],
     providers: [
         {
@@ -19,4 +22,5 @@ import { DatabaseModule } from '../common/database/database.module';
         },
     ],
 })
-export class AppModule {}
+export class AppModule {
+}

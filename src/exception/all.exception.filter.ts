@@ -51,7 +51,7 @@ export class AllExceptionFilter implements ExceptionFilter {
         const response: Response = ctx.getResponse<Response>();
         const request: Request = ctx.getRequest<Request>();
 
-        console.log(exception.constructor.name);
+        console.log(exception.constructor.name, exception);
 
         let status: number;
         let message: string;
@@ -66,10 +66,6 @@ export class AllExceptionFilter implements ExceptionFilter {
             message = 'system error';
         }
 
-        response.status(HttpStatus.OK).json(
-            new ResponseDto([], request.requestId)
-                .setCode(status)
-                .setMessage(message)
-        );
+        response.status(HttpStatus.OK).json(new ResponseDto([], request.requestId).setCode(status).setMessage(message));
     }
 }

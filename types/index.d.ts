@@ -1,0 +1,1 @@
+type ResponseEnumType = (number | string)[]
