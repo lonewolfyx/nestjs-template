@@ -32,7 +32,6 @@ export class AuthGuard implements CanActivate {
         // 验证 token 是否有效
         try {
             request['user'] = await this.TokenService.verify(token)
-            console.log(request['user'])
         } catch {
             throw new BusinessException(CLIENT_HTTP_UNAUTHORIZED_EXPIRED);
         }

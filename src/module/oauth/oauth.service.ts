@@ -22,14 +22,14 @@ export class OauthService {
      * @param password
      */
     async login(username: string, password: string) {
-        const user = await this.prisma.user.findFirst({
+        const user = await this.prisma.sys_user.findFirst({
             where: {
-                username: username
+                user_name: username
             },
             select: {
                 id: true,
-                username: true,
-                password: true
+                user_name: true,
+                user_pass: true
             },
         })
 
@@ -40,7 +40,7 @@ export class OauthService {
 
         // const userPassword = encryptPassword(password);
         const userPassword = password;
-        if (userPassword !== user.password) {
+        if (userPassword !== user.user_pass) {
             // 可做密码错误次数限制
             // 抛出异常，用户登录的密码错误
             throw new BusinessException(ACCOUNT_PASSWORD_ERROR)

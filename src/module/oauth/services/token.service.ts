@@ -6,8 +6,8 @@ import {ConfigService} from "@nestjs/config";
 
 interface UserType {
     id: bigint;
-    username: string;
-    password: string;
+    user_name: string;
+    user_pass: string;
 }
 
 @Injectable()
@@ -26,7 +26,7 @@ export class TokenService {
     async build(user: UserType) {
         const payload = {
             uid: user.id,
-            username: user.username,
+            username: user.user_name,
         }
 
         const {access_token, expire_in} = await this.buildAccessToken(payload)
@@ -37,7 +37,7 @@ export class TokenService {
         await this.prisma.access_token.create({
             data: {
                 uid: user.id,
-                username: user.username,
+                username: user.user_name,
                 access_token: access_token,
                 expire: expire_in.toString(),
                 refresh_token: refresh_token,
