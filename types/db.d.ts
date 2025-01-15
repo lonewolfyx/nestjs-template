@@ -49,6 +49,73 @@ export interface AccessToken {
   username: Generated<string>;
 }
 
+export interface SysPermission {
+  /**
+   * 创建时间
+   */
+  create_time: Generated<Date | null>;
+  /**
+   * 权限描述
+   */
+  description: Generated<string | null>;
+  id: Generated<number>;
+  /**
+   * 权限名称
+   */
+  permission_name: Generated<string>;
+  /**
+   * 权限状态
+   * 1 有效
+   * 0 无效
+   */
+  status: Generated<number>;
+  /**
+   * 更新时间
+   */
+  update_time: Generated<Date | null>;
+}
+
+export interface SysRole {
+  /**
+   * 创建时间
+   */
+  create_time: Generated<Date | null>;
+  /**
+   * 角色描述
+   */
+  description: Generated<string | null>;
+  id: Generated<number>;
+  /**
+   * 角色编码
+   */
+  role_code: Generated<string>;
+  /**
+   * 角色名称
+   */
+  role_name: string;
+  /**
+   * 角色状态
+   * 1 有效
+   * 0 无效
+   */
+  status: Generated<number>;
+  /**
+   * 更新时间
+   */
+  update_time: Generated<Date | null>;
+}
+
+export interface SysRolePermissions {
+  /**
+   * 权限 ID
+   */
+  permission_id: number;
+  /**
+   * 角色 ID
+   */
+  role_id: number;
+}
+
 export interface SysUser {
   /**
    * 用户创建时间
@@ -60,13 +127,17 @@ export interface SysUser {
   email: Generated<string>;
   id: Generated<number>;
   /**
+   * 用户别名
+   */
+  nick_name: Generated<string>;
+  /**
    * 用户手机号
    */
   phone: Generated<string>;
   /**
    * 用户状态
    * 1 有效
-   * 2 实效
+   * 0 失效
    */
   status: Generated<number>;
   /**
@@ -83,7 +154,22 @@ export interface SysUser {
   user_pass: Generated<string>;
 }
 
+export interface SysUserRoles {
+  /**
+   * 角色 ID
+   */
+  role_id: number;
+  /**
+   * 用户 ID
+   */
+  user_id: number;
+}
+
 export interface DB {
   access_token: AccessToken;
+  sys_permission: SysPermission;
+  sys_role: SysRole;
+  sys_role_permissions: SysRolePermissions;
   sys_user: SysUser;
+  sys_user_roles: SysUserRoles;
 }
