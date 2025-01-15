@@ -9,20 +9,71 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
+export interface AccessToken {
+  /**
+   * access token
+   */
+  access_token: Generated<string>;
+  /**
+   * 创建时间
+   */
+  create_time: Generated<Date | null>;
+  /**
+   * access 有效期
+   */
+  expire: Generated<string>;
+  id: Generated<number>;
+  /**
+   * refresh 有效期
+   */
+  refresh_expire_token: Generated<string>;
+  /**
+   * refresh_token
+   */
+  refresh_token: Generated<string>;
+  /**
+   * refresh 状态
+   */
+  status: Generated<number | null>;
+  /**
+   * 用户ID
+   */
+  uid: number;
+  /**
+   * 更新时间
+   */
+  update_time: Generated<Date | null>;
+  /**
+   * 用户名称
+   */
+  username: Generated<string>;
+}
+
 export interface User {
+  /**
+   * 创建时间
+   */
   create_time: Generated<Date | null>;
   id: Generated<number>;
   /**
    * 用户密码
    */
   password: Generated<string>;
+  /**
+   * 用户状态
+   */
+  status: Generated<number | null>;
+  /**
+   * 更新时间
+   */
   update_time: Generated<Date | null>;
   /**
-   * 用户名
+   * 用户名称
    */
   username: Generated<string>;
 }
 
 export interface DB {
+  access_token: AccessToken;
   user: User;
 }
