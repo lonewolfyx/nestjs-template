@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model access_token {
+  id                   BigInt    @id @default(autoincrement())
+  uid                  BigInt
+  username             String    @default("") @db.VarChar(150)
+  access_token         String    @default("") @db.VarChar(256)
+  expire               String    @default("") @db.VarChar(20)
+  refresh_token        String    @default("") @db.VarChar(256)
+  refresh_expire_token String    @default("") @db.VarChar(20)
+  create_time          DateTime? @default(now()) @db.DateTime(0)
+  update_time          DateTime? @default(now()) @db.DateTime(0)
+  status               Boolean?  @default(false)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model user {
+  id          BigInt    @id @default(autoincrement())
+  username    String    @default("") @db.VarChar(150)
+  password    String    @default("") @db.VarChar(100)
+  status      Boolean?  @default(false)
+  create_time DateTime? @default(now()) @db.DateTime(0)
+  update_time DateTime? @default(now()) @db.DateTime(0)
+}
