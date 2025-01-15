@@ -54,6 +54,7 @@ export const SYSTEM_CONFIG_ERROR = [500005, '系统配置错误'];
 //
 // 业务操作错误码（外部服务或内部服务调用）
 export const SERVICE_REGISTER_ERROR = [500101, '注册失败'];
+export const SERVICE_REGISTER_ACCOUNT_ERROR = [500102, '注册失败，当前账户已存在'];
 export const SERVICE_LOGIN_ERROR = [500102, '登录失败'];
 export const SERVICE_LOGIN_ACCOUNT_ERROR = [500103, '账号或密码错误'];
 export const SERVICE_USER_INTEGRAL_ERROR = [500200, '积分不足'];
