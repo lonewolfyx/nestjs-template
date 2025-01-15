@@ -1,14 +1,21 @@
 import {Module} from '@nestjs/common';
 import {OauthModule} from './oauth/oauth.module';
-import {APP_FILTER, APP_INTERCEPTOR} from '@nestjs/core';
+import {APP_FILTER, APP_GUARD, APP_INTERCEPTOR} from '@nestjs/core';
 import {AllExceptionFilter} from '../exception/all.exception.filter';
 import {ResponseInterceptor} from '../interceptor/ResponseInterceptor';
 import {DatabaseModule} from '../common/database/database.module';
+import {ConfigModule} from "@nestjs/config";
+import {RedisModule} from "../common/redis/redis.module";
+import {AuthGuard} from "./oauth/guard/auth.guard";
 
 @Module({
     imports: [
         OauthModule,
         DatabaseModule,
+        RedisModule,
+        ConfigModule.forRoot({
+            isGlobal: true
+        })
     ],
     controllers: [],
     providers: [
@@ -20,6 +27,10 @@ import {DatabaseModule} from '../common/database/database.module';
             provide: APP_INTERCEPTOR,
             useClass: ResponseInterceptor,
         },
+        {
+            provide: APP_GUARD,
+            useClass: AuthGuard
+        }
     ],
 })
 export class AppModule {

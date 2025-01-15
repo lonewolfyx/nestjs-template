@@ -3,6 +3,9 @@ import {OauthController} from './oauth.controller';
 import {OauthService} from './oauth.service';
 import {JwtModule} from '@nestjs/jwt';
 import {ConfigModule, ConfigService} from "@nestjs/config";
+import {TokenService} from "./services/token.service";
+import {RedisModule} from "../../common/redis/redis.module";
+import {UserModule} from "../user/user.module";
 
 @Module({
     imports: [
@@ -14,16 +17,16 @@ import {ConfigModule, ConfigService} from "@nestjs/config";
             useFactory: (configService: ConfigService) => ({
                 global: true,
                 secret: configService.get<string>('SECRET_KEY'),
-                signOptions: {
-                    expiresIn: '60s',
-                },
+                signOptions: {},
             }),
             inject: [ConfigService],
         }),
+        RedisModule,
+        UserModule
     ],
     controllers: [OauthController],
-    providers: [OauthService],
-    exports: [OauthService],
+    providers: [OauthService, TokenService],
+    exports: [OauthService, JwtModule, TokenService],
 })
 export class OauthModule {
 }
