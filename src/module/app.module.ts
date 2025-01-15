@@ -8,6 +8,7 @@ import {ConfigModule} from "@nestjs/config";
 import {RedisModule} from "../common/redis/redis.module";
 import {AuthGuard} from "./oauth/guard/auth.guard";
 import {TransformDateInterceptorInterceptor} from "../interceptor/transform-date-interceptor.interceptor";
+import {TransformNumberInterceptorInterceptor} from "../interceptor/transform-number-interceptor.interceptor";
 
 @Module({
     imports: [
@@ -23,6 +24,10 @@ import {TransformDateInterceptorInterceptor} from "../interceptor/transform-date
         {
             provide: APP_INTERCEPTOR,
             useClass: TransformDateInterceptorInterceptor
+        },
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: TransformNumberInterceptorInterceptor
         },
         {
             provide: APP_FILTER,
