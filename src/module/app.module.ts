@@ -10,12 +10,12 @@ import {AuthGuard} from "./oauth/guard/auth.guard";
 
 @Module({
     imports: [
-        OauthModule,
-        DatabaseModule,
-        RedisModule,
         ConfigModule.forRoot({
             isGlobal: true
-        })
+        }),
+        OauthModule,
+        DatabaseModule,
+        RedisModule
     ],
     controllers: [],
     providers: [
