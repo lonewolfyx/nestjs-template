@@ -4,6 +4,10 @@ import {VersioningType} from '@nestjs/common';
 import {RequestIdMiddleware} from './middleware/request.id.middleware';
 import * as os from "node:os";
 
+(BigInt.prototype as any).toJSON = function () {
+    return this.toString();
+};
+
 (async () => {
     const app = await NestFactory.create(AppModule);
     app.enableCors();
