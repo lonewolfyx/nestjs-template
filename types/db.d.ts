@@ -49,31 +49,41 @@ export interface AccessToken {
   username: Generated<string>;
 }
 
-export interface User {
+export interface SysUser {
   /**
-   * 创建时间
+   * 用户创建时间
    */
   create_time: Generated<Date | null>;
+  /**
+   * 用户邮箱
+   */
+  email: Generated<string>;
   id: Generated<number>;
   /**
-   * 用户密码
+   * 用户手机号
    */
-  password: Generated<string>;
+  phone: Generated<string>;
   /**
    * 用户状态
+   * 1 有效
+   * 2 实效
    */
   status: Generated<number | null>;
   /**
-   * 更新时间
+   * 用户更新时间
    */
   update_time: Generated<Date | null>;
   /**
    * 用户名称
    */
-  username: Generated<string>;
+  user_name: Generated<string>;
+  /**
+   * 用户密码
+   */
+  user_pass: Generated<string>;
 }
 
 export interface DB {
   access_token: AccessToken;
-  user: User;
+  sys_user: SysUser;
 }
