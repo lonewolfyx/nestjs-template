@@ -68,7 +68,7 @@ export interface SysUser {
    * 1 有效
    * 2 实效
    */
-  status: Generated<number | null>;
+  status: Generated<number>;
   /**
    * 用户更新时间
    */

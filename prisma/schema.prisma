@@ -28,7 +28,7 @@ model sys_user {
   user_pass   String    @default("") @db.VarChar(50)
   phone       String    @default("") @db.VarChar(15)
   email       String    @default("") @db.VarChar(20)
-  status      Boolean?  @default(true)
+  status      Boolean   @default(true)
   create_time DateTime? @default(now()) @db.DateTime(0)
   update_time DateTime? @default(now()) @db.DateTime(0)
 }
