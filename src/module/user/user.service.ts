@@ -53,6 +53,7 @@ export class UserService {
             data: {
                 user_name: registerDto.username,
                 user_pass: registerDto.password,
+                nick_name: registerDto.username,
                 phone: '',
                 email: '',
                 status: true
