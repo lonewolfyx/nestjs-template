@@ -11,6 +11,10 @@ export class RabbitMqService {
     ) {
     }
 
+    /**
+     * 生产 MQ 队列内容
+     * @param content
+     */
     producer(content: string) {
 
         return this.client.send(this.configService.get('RABBITMQ_QUEUES'), content).subscribe({
