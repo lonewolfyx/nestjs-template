@@ -1,4 +1,4 @@
-import {RedisKeys} from "../constants/catch.constant";
+import {RedisKeys} from "~/constants/catch.constant";
 
 /**
  * 构造授权 Token Redis Key

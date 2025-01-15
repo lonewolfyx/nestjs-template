@@ -3,7 +3,7 @@ import {ExecutionContext} from '@nestjs/common/interfaces/features/execution-con
 import {map, Observable} from 'rxjs';
 import {CallHandler} from '@nestjs/common/interfaces/features/nest-interceptor.interface';
 import {Request} from 'express';
-import {ResponseDto} from '../dto/response.dto';
+import {ResponseDto} from '~/dto/response.dto';
 
 /**
  * 响应拦截器

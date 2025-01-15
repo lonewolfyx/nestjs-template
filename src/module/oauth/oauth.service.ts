@@ -1,11 +1,11 @@
 import {Injectable} from '@nestjs/common';
-import {PrismaService} from "../../common/database/PrismaService";
+import {PrismaService} from "~/common/database/PrismaService";
 import {isEmpty} from "radash";
 import {TokenService} from "./services/token.service";
-import {RedisService} from "../../common/redis/redis.service";
-import {ACCOUNT_PASSWORD_ERROR} from "../../constants/response.enum";
-import {BusinessException} from "../../exception/business.exception";
-import {buildAuthTokenKey} from "../../utils/genRedisKey";
+import {RedisService} from "~/common/redis/redis.service";
+import {ACCOUNT_PASSWORD_ERROR} from "~/constants/response.enum";
+import {BusinessException} from "~/exception/business.exception";
+import {buildAuthTokenKey} from "~/utils/genRedisKey";
 
 @Injectable()
 export class OauthService {

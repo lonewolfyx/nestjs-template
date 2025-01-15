@@ -1,7 +1,7 @@
 import {CallHandler, ExecutionContext, Injectable, NestInterceptor} from '@nestjs/common';
 import {map, Observable} from 'rxjs';
 import {isObject} from "radash";
-import {transformDate} from "../utils";
+import {transformDate} from "~/utils";
 
 export interface Response<T> {
     data: T;

@@ -1,9 +1,9 @@
 import {CanActivate, ExecutionContext, Injectable} from '@nestjs/common';
 import {Request} from 'express';
-import {CLIENT_HTTP_UNAUTHORIZED, CLIENT_HTTP_UNAUTHORIZED_EXPIRED} from "../../../constants/response.enum";
+import {CLIENT_HTTP_UNAUTHORIZED, CLIENT_HTTP_UNAUTHORIZED_EXPIRED} from "~/constants/response.enum";
 import {TokenService} from "../services/token.service";
-import {BusinessException} from "../../../exception/business.exception";
-import {WhiteRouterList} from "../../../constants/oauth.constant";
+import {BusinessException} from "~/exception/business.exception";
+import {WhiteRouterList} from "~/constants/oauth.constant";
 
 @Injectable()
 export class AuthGuard implements CanActivate {

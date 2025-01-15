@@ -4,7 +4,7 @@ import {OauthService} from './oauth.service';
 import {JwtModule} from '@nestjs/jwt';
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {TokenService} from "./services/token.service";
-import {RedisModule} from "../../common/redis/redis.module";
+import {RedisModule} from "~/common/redis/redis.module";
 import {UserModule} from "../user/user.module";
 
 @Module({

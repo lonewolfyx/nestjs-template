@@ -1,8 +1,8 @@
 import {Injectable} from '@nestjs/common';
 import {RegisterDto} from "../oauth/dto/register.dto";
-import {PrismaService} from "../../common/database/PrismaService";
-import {BusinessException} from "../../exception/business.exception";
-import {SERVICE_REGISTER_ACCOUNT_ERROR} from "../../constants/response.enum";
+import {PrismaService} from "~/common/database/PrismaService";
+import {BusinessException} from "~/exception/business.exception";
+import {SERVICE_REGISTER_ACCOUNT_ERROR} from "~/constants/response.enum";
 import {UserWhereTypes} from "../../../types/users";
 
 @Injectable()

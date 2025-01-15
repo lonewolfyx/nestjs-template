@@ -2,7 +2,7 @@ import {Body, Controller, Post} from '@nestjs/common';
 import {OauthService} from './oauth.service';
 import {LoginDto} from "./dto/login.dto";
 import {RegisterDto} from "./dto/register.dto";
-import {ValidatePipe} from "../../validate/validate.pipe";
+import {ValidatePipe} from "~/validate/validate.pipe";
 import {UserService} from "../user/user.service";
 
 @Controller({

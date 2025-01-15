@@ -21,7 +21,7 @@ import {
 import {ArgumentsHost, HttpArgumentsHost} from '@nestjs/common/interfaces/features/arguments-host.interface';
 import {Request, Response} from 'express';
 import {HttpException} from '@nestjs/common/exceptions/http.exception';
-import {ResponseDto} from '../dto/response.dto';
+import {ResponseDto} from '~/dto/response.dto';
 
 type UnifiedException =
     | BadRequestException

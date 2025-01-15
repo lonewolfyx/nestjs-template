@@ -1,7 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import {JwtService} from "@nestjs/jwt";
 import dayjs from 'dayjs';
-import {PrismaService} from "../../../common/database/PrismaService";
+import {PrismaService} from "~/common/database/PrismaService";
 import {ConfigService} from "@nestjs/config";
 
 interface UserType {
