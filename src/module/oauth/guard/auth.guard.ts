@@ -3,12 +3,14 @@ import {Request} from 'express';
 import {CLIENT_HTTP_UNAUTHORIZED, CLIENT_HTTP_UNAUTHORIZED_EXPIRED} from "~/constants/response.enum";
 import {TokenService} from "../services/token.service";
 import {BusinessException} from "~/exception/business.exception";
-import {WhiteRouterList} from "~/constants/oauth.constant";
+import {PUBLIC_KEY, WhiteRouterList} from "~/constants/oauth.constant";
+import {Reflector} from "@nestjs/core";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(
-        private TokenService: TokenService
+        private TokenService: TokenService,
+        private reflector: Reflector
     ) {
     }
 
@@ -17,6 +19,16 @@ export class AuthGuard implements CanActivate {
     ): Promise<boolean> {
 
         const request = context.switchToHttp().getRequest<Request>();
+
+        // 检测是否是公共路由，公共路由无需校验 Token
+        const isPublic = this.reflector.getAllAndOverride<boolean>(PUBLIC_KEY, [
+            context.getHandler(),
+            context.getClass(),
+        ]);
+
+        if (isPublic) {
+            return true;
+        }
 
         // 检测是否是白名单路由，白名单路由无需校验 Token
         if (this.isWhiteRouter(request.url)) {
