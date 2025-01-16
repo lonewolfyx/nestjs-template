@@ -28,6 +28,7 @@ export const CLIENT_DELETED_ERROR = [400202, '数据不存在'];
 export const CLIENT_HTTP_UNAUTHORIZED = [401001, '授权失败，请先登录'];
 export const CLIENT_HTTP_UNAUTHORIZED_EXPIRED = [401200, '账号信息已过期，请重新登录'];
 export const CLIENT_HTTP_UNAUTHORIZED_BLACKLISTED = [401201, '账号在其他设备登录，请重新登录'];
+export const CLIENT_HTTP_UNAUTHORIZED_NOT_FOUND = [401202, '账号不存在'];
 // 403 - 禁止访问
 // 404 - 没有找到文件或目录
 export const CLIENT_NOT_FOUND_ERROR = [404001, '没有找到该页面'];
