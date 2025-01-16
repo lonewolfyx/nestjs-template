@@ -64,14 +64,28 @@ export class UserService {
     }
 
     /**
+     * 根据用户名查找用户
+     * @param username
+     */
+    async findUserByUserName(username: string) {
+        return await this.hasUser({
+            user_name: username
+        })
+    }
+
+    /**
      * 判断用户是否存在
      * @param userWhere
      */
-    async hasUser(userWhere: UserWhereTypes) {
+    async hasUser(userWhere: UserWhereTypes): Promise<{
+        user_name: string;
+        user_pass: string;
+    }> {
         return this.prisma.sys_user.findFirst({
             where: userWhere,
             select: {
                 user_name: true,
+                user_pass: true
             }
         })
     }
