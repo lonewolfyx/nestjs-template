@@ -1,10 +1,11 @@
-import {NestFactory} from '@nestjs/core';
-import {AppModule} from './module/app.module';
-import {VersioningType} from '@nestjs/common';
-import {RequestIdMiddleware} from './middleware/request.id.middleware';
-import * as os from "node:os";
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './module/app.module';
+import { VersioningType } from '@nestjs/common';
+import { RequestIdMiddleware } from './middleware/request.id.middleware';
+import * as os from 'node:os';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-(BigInt.prototype as any).toJSON = function () {
+(BigInt.prototype as any).toJSON = function() {
     return this.toString();
 };
 
@@ -21,7 +22,17 @@ import * as os from "node:os";
     app.use(RequestIdMiddleware);
 
     // 开启前缀
-    app.setGlobalPrefix('api');
+    // app.setGlobalPrefix('api');
+
+    // 初始化 swagger 文档
+    const options = new DocumentBuilder()
+        .setTitle('NestJs 模板')
+        .setDescription('这是项目的 api 文档')
+        .setVersion('1.0')
+        .build();
+    const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup('docs', app, document);
+
 
     await app.listen(process.env.PORT ?? 3000, () => {
         const port = app.getHttpServer().address().port;
@@ -36,9 +47,9 @@ import * as os from "node:os";
                         detail.family === 4),
             )
             .forEach(detail => {
-                console.info(`  ➜  Network: http://${detail.address}:${port}`)
-            })
-    })
+                console.info(`  ➜  Network: http://${detail.address}:${port}`);
+            });
+    });
 
-})()
+})();
 

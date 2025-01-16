@@ -1,10 +1,12 @@
-import {Body, Controller, Post} from '@nestjs/common';
-import {OauthService} from './oauth.service';
-import {LoginDto} from "./dto/login.dto";
-import {RegisterDto} from "./dto/register.dto";
-import {ValidatePipe} from "~/validate/validate.pipe";
-import {UserService} from "../user/user.service";
+import { Body, Controller, Post } from '@nestjs/common';
+import { OauthService } from './oauth.service';
+import { LoginDto } from './dto/login.dto';
+import { RegisterDto } from './dto/register.dto';
+import { ValidatePipe } from '~/validate/validate.pipe';
+import { UserService } from '../user/user.service';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Oauth - 认证模块')
 @Controller({
     path: 'oauth',
     version: '1',
@@ -12,7 +14,7 @@ import {UserService} from "../user/user.service";
 export class OauthController {
     constructor(
         private OauthService: OauthService,
-        private UserService: UserService
+        private UserService: UserService,
     ) {
     }
 
@@ -33,12 +35,14 @@ export class OauthController {
     // }
 
     @Post('login')
+    @ApiOperation({ summary: '登录' })
     async login(@Body() LoginDto: LoginDto) {
-        return this.OauthService.login(LoginDto.username, LoginDto.password)
+        return this.OauthService.login(LoginDto.username, LoginDto.password);
     }
 
     @Post('register')
+    @ApiOperation({ summary: '注册' })
     async register(@Body(new ValidatePipe()) dto: RegisterDto) {
-        return this.UserService.register(dto)
+        return this.UserService.register(dto);
     }
 }
