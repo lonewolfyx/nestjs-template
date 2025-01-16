@@ -20,22 +20,25 @@ import * as os from "node:os";
     // 创建请求 id
     app.use(RequestIdMiddleware);
 
-    await app.listen(process.env.PORT ?? 3000)
+    // 开启前缀
+    app.setGlobalPrefix('api');
 
-    const port = app.getHttpServer().address().port;
+    await app.listen(process.env.PORT ?? 3000, () => {
+        const port = app.getHttpServer().address().port;
 
-    Object.values(os.networkInterfaces())
-        .flatMap((nInterface) => nInterface ?? [])
-        .filter(
-            (detail) =>
-                detail.address &&
-                (detail.family === 'IPv4' ||
-                    // @ts-expect-error Node 18.0 - 18.3 returns number
-                    detail.family === 4),
-        )
-        .forEach(detail => {
-            console.info(`  ➜  Network: http://${detail.address}:${port}`)
-        })
+        Object.values(os.networkInterfaces())
+            .flatMap((nInterface) => nInterface ?? [])
+            .filter(
+                (detail) =>
+                    detail.address &&
+                    (detail.family === 'IPv4' ||
+                        // @ts-expect-error Node 18.0 - 18.3 returns number
+                        detail.family === 4),
+            )
+            .forEach(detail => {
+                console.info(`  ➜  Network: http://${detail.address}:${port}`)
+            })
+    })
 
 })()
 
