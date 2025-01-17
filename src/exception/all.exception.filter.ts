@@ -18,10 +18,11 @@ import {
     UnauthorizedException,
     UnsupportedMediaTypeException,
 } from '@nestjs/common';
-import {ArgumentsHost, HttpArgumentsHost} from '@nestjs/common/interfaces/features/arguments-host.interface';
-import {Request, Response} from 'express';
-import {HttpException} from '@nestjs/common/exceptions/http.exception';
-import {ResponseDto} from '~/dto/response.dto';
+import { ArgumentsHost, HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
+import { Request, Response } from 'express';
+import { HttpException } from '@nestjs/common/exceptions/http.exception';
+import { ResponseDto } from '~/dto/response.dto';
+import { ErrorCode } from '~/constants/error.code.constant';
 
 type UnifiedException =
     | BadRequestException
@@ -64,6 +65,10 @@ export class AllExceptionFilter implements ExceptionFilter {
             // 默认状态
             status = 10000;
             message = 'system error';
+        }
+
+        if (exception instanceof BadRequestException) {
+            status = ErrorCode.BAD_REQUEST;
         }
 
         response.status(HttpStatus.OK).json(new ResponseDto([], request.requestId).setCode(status).setMessage(message));
