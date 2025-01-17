@@ -49,6 +49,66 @@ export interface AccessToken {
   username: Generated<string>;
 }
 
+export interface SysMenu {
+  /**
+   * 组件路径
+   */
+  component: Generated<string | null>;
+  /**
+   * 创建时间
+   */
+  create_time: Generated<Date | null>;
+  /**
+   * 显示状态
+   * 0 隐藏
+   * 1 显示
+   */
+  hidden: Generated<number>;
+  id: Generated<number>;
+  /**
+   * 路由地址
+   */
+  link: Generated<string>;
+  /**
+   * 菜单图标
+   */
+  menu_icon: Generated<string | null>;
+  /**
+   * 菜单名称
+   */
+  menu_name: Generated<string | null>;
+  /**
+   * 菜单类型
+   * menu - 主目录
+   * children 菜单
+   */
+  menu_type: Generated<string | null>;
+  /**
+   * 菜单顺序
+   */
+  order: Generated<number | null>;
+  /**
+   * 父菜单ID
+   */
+  parent_id: Generated<number>;
+  /**
+   * 菜单状态
+   * 0 隐藏
+   * 1 显示
+   */
+  status: Generated<number>;
+  /**
+   * 打开方式
+   * base 页签
+   * blank 新窗口
+   */
+  target: Generated<string>;
+  /**
+   * 更新时间
+   */
+  update_time: Generated<Date | null>;
+}
+
 export interface SysPermission {
   /**
    * 创建时间
@@ -167,6 +227,7 @@ export interface SysUserRoles {
 
 export interface DB {
   access_token: AccessToken;
+  sys_menu: SysMenu;
   sys_permission: SysPermission;
   sys_role: SysRole;
   sys_role_permissions: SysRolePermissions;
