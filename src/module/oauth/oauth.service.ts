@@ -1,20 +1,19 @@
-import {Injectable} from '@nestjs/common';
-import {PrismaService} from "~/common/database/PrismaService";
-import {isEmpty} from "radash";
-import {TokenService} from "./services/token.service";
-import {RedisService} from "~/common/redis/redis.service";
-import {ACCOUNT_PASSWORD_ERROR} from "~/constants/response.enum";
-import {BusinessException} from "~/exception/business.exception";
-import {buildAuthTokenKey} from "~/utils/genRedisKey";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '~/common/database/PrismaService';
+import { isEmpty } from 'radash';
+import { TokenService } from './services/token.service';
+import { RedisService } from '~/common/redis/redis.service';
+import { ACCOUNT_PASSWORD_ERROR } from '~/constants/response.enum';
+import { BusinessException } from '~/exception/business.exception';
+import { buildAuthTokenKey } from '~/utils/genRedisKey';
 
 @Injectable()
 export class OauthService {
     constructor(
         private prisma: PrismaService,
         private TokenService: TokenService,
-        private RedisService: RedisService
-    ) {
-    }
+        private RedisService: RedisService,
+    ) {}
 
     /**
      * 登录
@@ -24,18 +23,18 @@ export class OauthService {
     async login(username: string, password: string) {
         const user = await this.prisma.sys_user.findFirst({
             where: {
-                user_name: username
+                user_name: username,
             },
             select: {
                 id: true,
                 user_name: true,
-                user_pass: true
+                user_pass: true,
             },
-        })
+        });
 
         if (isEmpty(user)) {
             // 抛出异常，可自定义异常
-            throw new BusinessException(ACCOUNT_PASSWORD_ERROR)
+            throw new BusinessException(ACCOUNT_PASSWORD_ERROR);
         }
 
         // const userPassword = encryptPassword(password);
@@ -43,13 +42,13 @@ export class OauthService {
         if (userPassword !== user.user_pass) {
             // 可做密码错误次数限制
             // 抛出异常，用户登录的密码错误
-            throw new BusinessException(ACCOUNT_PASSWORD_ERROR)
+            throw new BusinessException(ACCOUNT_PASSWORD_ERROR);
         }
 
         // 开始构造用户对应的 AccessToken 与 RefreshToken
-        const token = await this.TokenService.build(user)
+        const token = await this.TokenService.build(user);
 
-        await this.RedisService.set(buildAuthTokenKey(user.id), token.access_token)
+        await this.RedisService.set(buildAuthTokenKey(user.id), token.access_token);
 
         return token;
     }

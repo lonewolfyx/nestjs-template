@@ -1,35 +1,35 @@
-import {Module} from '@nestjs/common';
-import {OauthModule} from './oauth/oauth.module';
-import {APP_FILTER, APP_GUARD, APP_INTERCEPTOR} from '@nestjs/core';
-import {AllExceptionFilter} from '~/exception/all.exception.filter';
-import {ResponseInterceptor} from '~/interceptor/response.interceptor';
-import {DatabaseModule} from '~/common/database/database.module';
-import {ConfigModule} from "@nestjs/config";
-import {RedisModule} from "~/common/redis/redis.module";
-import {AuthGuard} from "./oauth/guard/auth.guard";
-import {TransformDateInterceptorInterceptor} from "~/interceptor/transform-date-interceptor.interceptor";
-import {TransformNumberInterceptorInterceptor} from "~/interceptor/transform-number-interceptor.interceptor";
+import { Module } from '@nestjs/common';
+import { OauthModule } from './oauth/oauth.module';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { AllExceptionFilter } from '~/exception/all.exception.filter';
+import { ResponseInterceptor } from '~/interceptor/response.interceptor';
+import { DatabaseModule } from '~/common/database/database.module';
+import { ConfigModule } from '@nestjs/config';
+import { RedisModule } from '~/common/redis/redis.module';
+import { AuthGuard } from './oauth/guard/auth.guard';
+import { TransformDateInterceptorInterceptor } from '~/interceptor/transform-date-interceptor.interceptor';
+import { TransformNumberInterceptorInterceptor } from '~/interceptor/transform-number-interceptor.interceptor';
 import { MenuModule } from './menu/menu.module';
 
 @Module({
     imports: [
         ConfigModule.forRoot({
-            isGlobal: true
+            isGlobal: true,
         }),
         OauthModule,
         DatabaseModule,
         RedisModule,
-        MenuModule
+        MenuModule,
     ],
     controllers: [],
     providers: [
         {
             provide: APP_INTERCEPTOR,
-            useClass: TransformDateInterceptorInterceptor
+            useClass: TransformDateInterceptorInterceptor,
         },
         {
             provide: APP_INTERCEPTOR,
-            useClass: TransformNumberInterceptorInterceptor
+            useClass: TransformNumberInterceptorInterceptor,
         },
         {
             provide: APP_FILTER,
@@ -41,9 +41,8 @@ import { MenuModule } from './menu/menu.module';
         },
         {
             provide: APP_GUARD,
-            useClass: AuthGuard
-        }
+            useClass: AuthGuard,
+        },
     ],
 })
-export class AppModule {
-}
+export class AppModule {}

@@ -6,13 +6,9 @@ import { createPagination } from '~/utils';
 
 @Injectable()
 export class MenuService {
-    constructor(
-        private readonly prisma: PrismaService,
-    ) {
-    }
+    constructor(private readonly prisma: PrismaService) {}
 
     async list(search: SearchDto) {
-
         const selectParams = {
             orderBy: {
                 id: 'desc',
@@ -20,14 +16,14 @@ export class MenuService {
             select: {
                 id: true,
                 menu_type: true,
-                create_time:true
+                create_time: true,
             },
         };
 
-        return createPagination(this.prisma.sys_menu, selectParams, ({
+        return createPagination(this.prisma.sys_menu, selectParams, {
             page: search.page,
             limit: search.limit,
-        }));
+        });
     }
 
     /**

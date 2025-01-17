@@ -5,7 +5,7 @@ import { RequestIdMiddleware } from './middleware/request.id.middleware';
 import * as os from 'node:os';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-(BigInt.prototype as any).toJSON = function() {
+(BigInt.prototype as any).toJSON = function () {
     return this.toString();
 };
 
@@ -24,14 +24,15 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
     // 开启前缀
     // app.setGlobalPrefix('api');
 
-    app.useGlobalPipes(new ValidationPipe({
-        // 根据对象的 DTO 类自动将有效负载转换为对象类型
-        transform: true,
-        transformOptions: {
-            enableImplicitConversion: true,
-        },
-    }));
-
+    app.useGlobalPipes(
+        new ValidationPipe({
+            // 根据对象的 DTO 类自动将有效负载转换为对象类型
+            transform: true,
+            transformOptions: {
+                enableImplicitConversion: true,
+            },
+        }),
+    );
 
     // 初始化 swagger 文档
     const options = new DocumentBuilder()
@@ -41,7 +42,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
         .build();
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup('docs', app, document);
-
 
     await app.listen(process.env.PORT ?? 3000, () => {
         const port = app.getHttpServer().address().port;
@@ -55,10 +55,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
                         // @ts-expect-error Node 18.0 - 18.3 returns number
                         detail.family === 4),
             )
-            .forEach(detail => {
+            .forEach((detail) => {
                 console.info(`  ➜  Network: http://${detail.address}:${port}`);
             });
     });
-
 })();
-

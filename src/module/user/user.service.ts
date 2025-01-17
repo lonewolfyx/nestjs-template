@@ -1,17 +1,13 @@
-import {Injectable} from '@nestjs/common';
-import {RegisterDto} from "../oauth/dto/register.dto";
-import {PrismaService} from "~/common/database/PrismaService";
-import {BusinessException} from "~/exception/business.exception";
-import {SERVICE_REGISTER_ACCOUNT_ERROR} from "~/constants/response.enum";
-import {UserWhereTypes} from "../../../types/users";
+import { Injectable } from '@nestjs/common';
+import { RegisterDto } from '../oauth/dto/register.dto';
+import { PrismaService } from '~/common/database/PrismaService';
+import { BusinessException } from '~/exception/business.exception';
+import { SERVICE_REGISTER_ACCOUNT_ERROR } from '~/constants/response.enum';
+import { UserWhereTypes } from '../../../types/users';
 
 @Injectable()
 export class UserService {
-    constructor(
-        private prisma: PrismaService
-    ) {
-    }
-
+    constructor(private prisma: PrismaService) {}
 
     /**
      * 获取用户信息
@@ -20,7 +16,7 @@ export class UserService {
     async getUserInfo(uid: number) {
         return this.prisma.sys_user.findFirst({
             where: {
-                id: uid
+                id: uid,
             },
             select: {
                 id: true,
@@ -29,10 +25,9 @@ export class UserService {
                 email: true,
                 status: true,
                 create_time: true,
-                update_time: true
-            }
-        })
-
+                update_time: true,
+            },
+        });
     }
 
     /**
@@ -43,10 +38,10 @@ export class UserService {
         // 判断用户名是否存在
         if (
             await this.hasUser({
-                user_name: registerDto.username
+                user_name: registerDto.username,
             })
         ) {
-            throw new BusinessException(SERVICE_REGISTER_ACCOUNT_ERROR)
+            throw new BusinessException(SERVICE_REGISTER_ACCOUNT_ERROR);
         }
 
         await this.prisma.sys_user.create({
@@ -56,11 +51,11 @@ export class UserService {
                 nick_name: registerDto.username,
                 phone: '',
                 email: '',
-                status: true
-            }
-        })
+                status: true,
+            },
+        });
 
-        return '注册成功'
+        return '注册成功';
     }
 
     /**
@@ -69,8 +64,8 @@ export class UserService {
      */
     async findUserByUserName(username: string) {
         return await this.hasUser({
-            user_name: username
-        })
+            user_name: username,
+        });
     }
 
     /**
@@ -85,8 +80,8 @@ export class UserService {
             where: userWhere,
             select: {
                 user_name: true,
-                user_pass: true
-            }
-        })
+                user_pass: true,
+            },
+        });
     }
 }

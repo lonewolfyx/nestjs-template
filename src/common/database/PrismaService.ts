@@ -1,5 +1,5 @@
-import {Injectable, OnModuleInit} from '@nestjs/common';
-import {PrismaClient} from '@prisma/client';
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -9,7 +9,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
                 {
                     emit: 'event',
                     level: 'query',
-                }
+                },
             ],
         });
 
@@ -31,7 +31,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         //     console.log('Full SQL Query:', query);
         //     console.log('Duration:', e.duration + 'ms');
         // })
-
     }
 
     async onModuleInit() {

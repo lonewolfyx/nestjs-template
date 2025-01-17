@@ -1,4 +1,4 @@
-export const OPERATION_SUCCESSFUL='操作成功';
+export const OPERATION_SUCCESSFUL = '操作成功';
 
 // 001 ~ 099 表示系统状态；100 ~ 199 表示授权业务；200 ~ 299 表示用户业务
 
@@ -8,10 +8,9 @@ export const OPERATION_SUCCESSFUL='操作成功';
 
 /*-------------------------------------------------------------------------------------------*/
 
-
 // 200表示服务器成功地接受了客户端请求
-export const HTTP_OK = [200001, 'Ok']
-export const ACCOUNT_PASSWORD_ERROR = [200201, '用户名或密码有误，请重新输入']
+export const HTTP_OK = [200001, 'Ok'];
+export const ACCOUNT_PASSWORD_ERROR = [200201, '用户名或密码有误，请重新输入'];
 /*-------------------------------------------------------------------------------------------*/
 
 // 300开头的表示服务器重定向,指向的别的地方，客户端浏览器必须采取更多操作来实现请求
@@ -49,7 +48,7 @@ export const CLIENT_METHOD_HTTP_TYPE_ERROR = [405001, 'HTTP请求类型错误'];
 /*-------------------------------------------------------------------------------------------*/
 // 500开头的表示服务器错误，服务器因为代码，或者什么原因终止运行
 // 500 - 内部服务器错误
-export const SYSTEM_ERROR = [500001, '服务器错误']
+export const SYSTEM_ERROR = [500001, '服务器错误'];
 export const SYSTEM_UNAVAILABLE = [500002, '服务器正在维护，暂不可用'];
 export const SYSTEM_CACHE_CONFIG_ERROR = [500003, '缓存配置错误'];
 export const SYSTEM_CACHE_MISSED_ERROR = [500004, '缓存未命中'];
@@ -61,4 +60,3 @@ export const SERVICE_REGISTER_ACCOUNT_ERROR = [500102, '注册失败，当前账
 export const SERVICE_LOGIN_ERROR = [500102, '登录失败'];
 export const SERVICE_LOGIN_ACCOUNT_ERROR = [500103, '账号或密码错误'];
 export const SERVICE_USER_INTEGRAL_ERROR = [500200, '积分不足'];
-

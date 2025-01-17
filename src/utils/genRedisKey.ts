@@ -1,4 +1,4 @@
-import {RedisKeys} from "~/constants/catch.constant";
+import { RedisKeys } from '~/constants/catch.constant';
 
 /**
  * 构造授权 Token Redis Key
@@ -7,4 +7,4 @@ import {RedisKeys} from "~/constants/catch.constant";
  */
 export const buildAuthTokenKey = (uid: string | number | bigint): string => {
     return `${RedisKeys.AUTH_TOKEN_PREFIX}${String(uid)}`;
-}
+};

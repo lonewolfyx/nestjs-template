@@ -1,23 +1,19 @@
-import {CanActivate, ExecutionContext, Injectable} from '@nestjs/common';
-import {Request} from 'express';
-import {CLIENT_HTTP_UNAUTHORIZED, CLIENT_HTTP_UNAUTHORIZED_EXPIRED} from "~/constants/response.enum";
-import {TokenService} from "../services/token.service";
-import {BusinessException} from "~/exception/business.exception";
-import {PUBLIC_KEY, WhiteRouterList} from "~/constants/oauth.constant";
-import {Reflector} from "@nestjs/core";
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { Request } from 'express';
+import { CLIENT_HTTP_UNAUTHORIZED, CLIENT_HTTP_UNAUTHORIZED_EXPIRED } from '~/constants/response.enum';
+import { TokenService } from '../services/token.service';
+import { BusinessException } from '~/exception/business.exception';
+import { PUBLIC_KEY, WhiteRouterList } from '~/constants/oauth.constant';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(
         private TokenService: TokenService,
-        private reflector: Reflector
-    ) {
-    }
+        private reflector: Reflector,
+    ) {}
 
-    async canActivate(
-        context: ExecutionContext,
-    ): Promise<boolean> {
-
+    async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest<Request>();
 
         // 检测是否是公共路由，公共路由无需校验 Token
@@ -36,14 +32,14 @@ export class AuthGuard implements CanActivate {
         }
 
         // 监测是否携带 token
-        const token = this.extractTokenFromHeader(request)
+        const token = this.extractTokenFromHeader(request);
         if (!token) {
             throw new BusinessException(CLIENT_HTTP_UNAUTHORIZED);
         }
 
         // 验证 token 是否有效
         try {
-            request['user'] = await this.TokenService.verify(token)
+            request['user'] = await this.TokenService.verify(token);
         } catch {
             throw new BusinessException(CLIENT_HTTP_UNAUTHORIZED_EXPIRED);
         }
@@ -67,6 +63,6 @@ export class AuthGuard implements CanActivate {
      * @private
      */
     private isWhiteRouter(url: string) {
-        return WhiteRouterList.includes(url)
+        return WhiteRouterList.includes(url);
     }
 }

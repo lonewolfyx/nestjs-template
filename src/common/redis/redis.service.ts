@@ -1,6 +1,6 @@
-import {Injectable, OnModuleDestroy} from '@nestjs/common';
-import Redis from "ioredis";
-import * as process from "node:process";
+import { Injectable, OnModuleDestroy } from '@nestjs/common';
+import Redis from 'ioredis';
+import * as process from 'node:process';
 
 @Injectable()
 export class RedisService implements OnModuleDestroy {
@@ -15,8 +15,8 @@ export class RedisService implements OnModuleDestroy {
             // Redis 端口
             port: Number(process.env.REDIS_PORT),
             // Redis 密码
-            password: process.env.REDIS_PASSWORD
-        })
+            password: process.env.REDIS_PASSWORD,
+        });
     }
 
     /**
@@ -59,6 +59,6 @@ export class RedisService implements OnModuleDestroy {
 
     // 卸载 Redis 链接
     async onModuleDestroy(): Promise<void> {
-        await this.redisClient.quit()
+        await this.redisClient.quit();
     }
 }

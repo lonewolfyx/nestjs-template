@@ -1,6 +1,6 @@
-import {Module} from '@nestjs/common';
-import {RabbitMqService} from "./rabbitmq.service";
-import {ClientsModule, Transport} from "@nestjs/microservices";
+import { Module } from '@nestjs/common';
+import { RabbitMqService } from './rabbitmq.service';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
     imports: [
@@ -9,7 +9,9 @@ import {ClientsModule, Transport} from "@nestjs/microservices";
                 name: 'RABBITMQ_SERVICE',
                 transport: Transport.RMQ,
                 options: {
-                    urls: [`amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASSWORD}@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`],
+                    urls: [
+                        `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASSWORD}@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`,
+                    ],
                     queue: process.env.RABBITMQ_QUEUES, // 订阅的队列名称
                     queueOptions: {
                         durable: true,
@@ -19,7 +21,6 @@ import {ClientsModule, Transport} from "@nestjs/microservices";
         ]),
     ],
     providers: [RabbitMqService],
-    exports: [RabbitMqService]
+    exports: [RabbitMqService],
 })
-export class RabbitmqModule {
-}
+export class RabbitmqModule {}

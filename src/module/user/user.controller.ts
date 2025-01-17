@@ -9,11 +9,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
     version: '1',
 })
 export class UserController {
-
-    constructor(
-        private UserService: UserService,
-    ) {
-    }
+    constructor(private UserService: UserService) {}
 
     @Get('info')
     @ApiOperation({ summary: '用户详情' })

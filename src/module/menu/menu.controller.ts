@@ -11,17 +11,13 @@ import { SearchDto } from '~/module/menu/dto/search.dto';
     version: '1',
 })
 export class MenuController {
-    constructor(
-        private MenuService: MenuService,
-    ) {
-    }
+    constructor(private MenuService: MenuService) {}
 
     @Get('list')
     @ApiOperation({ summary: '菜单列表' })
     async list(@Query() search: SearchDto) {
         return this.MenuService.list(search);
     }
-
 
     @Post('add')
     @ApiOperation({ summary: '创建菜单' })

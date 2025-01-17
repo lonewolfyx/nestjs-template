@@ -15,8 +15,7 @@ export class OauthController {
     constructor(
         private OauthService: OauthService,
         private UserService: UserService,
-    ) {
-    }
+    ) {}
 
     // @Post('login')
     // async login(@Body(new ValidatePipe()) LoginDto: LoginDto) {

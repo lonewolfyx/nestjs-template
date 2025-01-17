@@ -1,6 +1,6 @@
-import {HttpException} from "@nestjs/common/exceptions/http.exception";
-import {isArray} from "radash";
-import {HttpStatus} from "@nestjs/common";
+import { HttpException } from '@nestjs/common/exceptions/http.exception';
+import { isArray } from 'radash';
+import { HttpStatus } from '@nestjs/common';
 
 export class BusinessException extends HttpException {
     constructor(error: string | Record<string, any>) {

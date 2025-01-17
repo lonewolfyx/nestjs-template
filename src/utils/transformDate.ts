@@ -1,4 +1,4 @@
-import dayjs, {ConfigType} from "dayjs";
+import dayjs, { ConfigType } from 'dayjs';
 
 /**
  * 时间转换
@@ -6,5 +6,5 @@ import dayjs, {ConfigType} from "dayjs";
  * @param template 格式化占位符
  */
 export const transformDate = (date: ConfigType, template = 'YYYY-MM-DD HH:mm:ss'): string => {
-    return dayjs(date).format(template)
-}
+    return dayjs(date).format(template);
+};

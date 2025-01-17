@@ -6,7 +6,11 @@ import { Pagination, PaginationResult } from '$/pagination';
  * @param args
  * @param options
  */
-export const createPagination = async <T>(model: any, args: any = { where: undefined }, options: Pagination): Promise<PaginationResult<T>> => {
+export const createPagination = async <T>(
+    model: any,
+    args: any = { where: undefined },
+    options: Pagination,
+): Promise<PaginationResult<T>> => {
     console.log();
     const page = Number(options?.page) || 1;
     const limit = Number(options?.limit) || 10;
