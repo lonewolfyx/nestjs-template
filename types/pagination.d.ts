@@ -3,8 +3,8 @@ export interface Pagination {
     limit: number;
 }
 
-export interface PaginationResult {
-    rows: any[];
+export interface PaginationResult<T> {
+    rows: T[];
     meta: {
         total: number,
         lastPage: number,
