@@ -3,11 +3,17 @@ import { PrismaService } from '~/common/database/PrismaService';
 import { CreateDto } from '~/module/menu/dto/create.dto';
 import { SearchDto } from '~/module/menu/dto/search.dto';
 import { createPagination } from '~/utils';
+import { MenuUpdateDto } from '~/module/menu/dto/menu.update.dto';
 
 @Injectable()
 export class MenuService {
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(private readonly prisma: PrismaService) {
+    }
 
+    /**
+     * 获取菜单列表
+     * @param search
+     */
     async list(search: SearchDto) {
         const selectParams = {
             orderBy: {
@@ -15,8 +21,16 @@ export class MenuService {
             },
             select: {
                 id: true,
+                parent_id: true,
+                menu_name: true,
+                order: true,
                 menu_type: true,
-                create_time: true,
+                menu_icon: true,
+                link: true,
+                target: true,
+                component: true,
+                hidden: true,
+                status: true,
             },
         };
 
@@ -58,6 +72,28 @@ export class MenuService {
             where: {
                 id: mid,
             },
+        });
+    }
+
+    /**
+     * 更新菜单
+     * @param mid
+     * @param dto
+     */
+    async update(mid: number, dto: MenuUpdateDto) {
+        const { ...formatDto } = dto;
+
+        const data = {
+            ...formatDto,
+            hidden: Boolean(dto.hidden),
+            status: Boolean(dto.status),
+        };
+
+        await this.prisma.sys_menu.update({
+            where: {
+                id: mid,
+            },
+            data: { ...data },
         });
     }
 }

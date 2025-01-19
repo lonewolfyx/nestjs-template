@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { MenuService } from '~/module/menu/menu.service';
 import { CreateDto } from '~/module/menu/dto/create.dto';
 import { OPERATION_SUCCESSFUL } from '~/constants/response.enum';
 import { SearchDto } from '~/module/menu/dto/search.dto';
+import { MenuUpdateDto } from '~/module/menu/dto/menu.update.dto';
 
 @ApiTags('menu - 菜单管理')
 @Controller({
@@ -11,7 +12,8 @@ import { SearchDto } from '~/module/menu/dto/search.dto';
     version: '1',
 })
 export class MenuController {
-    constructor(private MenuService: MenuService) {}
+    constructor(private MenuService: MenuService) {
+    }
 
     @Get('list')
     @ApiOperation({ summary: '菜单列表' })
@@ -26,11 +28,13 @@ export class MenuController {
         return OPERATION_SUCCESSFUL;
     }
 
-    // @Get(':mid')
-    // @ApiOperation({ summary: '更新菜单' })
-    // update(@Query('id') id: number) {
-    //     return { id };
-    // }
+    @Put(':mid')
+    @ApiOperation({ summary: '更新菜单' })
+    async update(@Param('mid') mid: number, @Body() dto: MenuUpdateDto) {
+        await this.MenuService.update(mid, dto);
+
+        return OPERATION_SUCCESSFUL;
+    }
 
     @Delete(':mid')
     @ApiOperation({ summary: '删除菜单' })
