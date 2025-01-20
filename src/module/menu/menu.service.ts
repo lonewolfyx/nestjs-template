@@ -4,6 +4,7 @@ import { CreateDto } from '~/module/menu/dto/create.dto';
 import { SearchDto } from '~/module/menu/dto/search.dto';
 import { createPagination } from '~/utils';
 import { MenuUpdateDto } from '~/module/menu/dto/menu.update.dto';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class MenuService {
@@ -17,7 +18,7 @@ export class MenuService {
     async list(search: SearchDto) {
         const selectParams = {
             orderBy: {
-                id: 'desc',
+                id: Prisma.SortOrder.asc,
             },
             select: {
                 id: true,
@@ -33,6 +34,14 @@ export class MenuService {
                 status: true,
             },
         };
+
+        if (search.pagination) {
+            delete selectParams.select.hidden;
+            delete selectParams.select.status;
+            return this.prisma.sys_menu.findMany({
+                ...selectParams,
+            });
+        }
 
         return createPagination(this.prisma.sys_menu, selectParams, {
             page: search.page,
