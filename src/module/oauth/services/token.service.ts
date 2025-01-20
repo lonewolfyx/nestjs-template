@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import dayjs from 'dayjs';
 import { PrismaService } from '~/common/database/PrismaService';
 import { ConfigService } from '@nestjs/config';
+import { authConfig } from '~/config/auth.config';
 
 interface UserType {
     id: bigint;
@@ -16,7 +17,8 @@ export class TokenService {
         private jwtService: JwtService,
         private prisma: PrismaService,
         private ConfigService: ConfigService,
-    ) {}
+    ) {
+    }
 
     /**
      * 构造 access token
@@ -59,24 +61,24 @@ export class TokenService {
      */
     private async buildAccessToken(payload: object) {
         const jwt = await this.jwtService.signAsync(payload, {
-            expiresIn: '7 days',
+            expiresIn: `${authConfig.access_token.duration} ${authConfig.access_token.unit}`,
         });
 
         return {
             access_token: jwt,
-            expire_in: dayjs().add(7, 'days').unix(),
+            expire_in: dayjs().add(authConfig.access_token.duration, authConfig.access_token.unit).unix(),
         };
     }
 
     // 构造 Refresh Token
     private async buildRefreshToken(payload: object) {
         const jwt = await this.jwtService.signAsync(payload, {
-            expiresIn: '15 days',
+            expiresIn: `${authConfig.refresh_token.duration} ${authConfig.refresh_token.unit}`,
         });
 
         return {
             refresh_token: jwt,
-            refresh_token_expires_in: dayjs().add(15, 'days').unix(),
+            refresh_token_expires_in: dayjs().add(authConfig.refresh_token.duration, authConfig.refresh_token.unit).unix(),
         };
     }
 
