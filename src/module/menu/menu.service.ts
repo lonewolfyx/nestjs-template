@@ -96,4 +96,18 @@ export class MenuService {
             data: { ...data },
         });
     }
+
+    /**
+     * 批量删除菜单
+     * @param ids
+     */
+    async batchDelete(ids: number[] | bigint[]) {
+        await this.prisma.sys_menu.deleteMany({
+            where: {
+                id: {
+                    in: ids,
+                },
+            },
+        });
+    }
 }

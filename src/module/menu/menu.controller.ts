@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { MenuService } from '~/module/menu/menu.service';
 import { CreateDto } from '~/module/menu/dto/create.dto';
-import { OPERATION_SUCCESSFUL } from '~/constants/response.enum';
 import { SearchDto } from '~/module/menu/dto/search.dto';
 import { MenuUpdateDto } from '~/module/menu/dto/menu.update.dto';
 
@@ -25,21 +24,23 @@ export class MenuController {
     @ApiOperation({ summary: '创建菜单' })
     async add(@Body() dto: CreateDto) {
         await this.MenuService.create(dto);
-        return OPERATION_SUCCESSFUL;
     }
 
     @Put(':mid')
     @ApiOperation({ summary: '更新菜单' })
     async update(@Param('mid') mid: number, @Body() dto: MenuUpdateDto) {
         await this.MenuService.update(mid, dto);
+    }
 
-        return OPERATION_SUCCESSFUL;
+    @Delete('batch')
+    @ApiOperation({ summary: '批量删除菜单' })
+    async batchDelete(@Body('ids') ids: number[]) {
+        await this.MenuService.batchDelete(ids);
     }
 
     @Delete(':mid')
     @ApiOperation({ summary: '删除菜单' })
     async delete(@Param('mid') mid: number) {
         await this.MenuService.delete(mid);
-        return OPERATION_SUCCESSFUL;
     }
 }
