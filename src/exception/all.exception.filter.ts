@@ -42,6 +42,12 @@ type UnifiedException =
     | ServiceUnavailableException
     | GatewayTimeoutException;
 
+interface ErrorType {
+    message: string | string[];
+    error: string;
+    statusCode: number;
+}
+
 /**
  * 所有异常过滤器
  */
@@ -68,9 +74,16 @@ export class AllExceptionFilter implements ExceptionFilter {
         }
 
         if (exception instanceof BadRequestException) {
+            const error = exception.getResponse() as ErrorType;
             status = ErrorCode.BAD_REQUEST;
+            message = error.message?.[0] ?? exception.message;
         }
 
-        response.status(HttpStatus.OK).json(new ResponseDto([], request.requestId).setCode(status).setMessage(message));
+        response.status(HttpStatus.OK)
+            .json(
+                new ResponseDto([], request.requestId)
+                    .setCode(status)
+                    .setMessage(message),
+            );
     }
 }
