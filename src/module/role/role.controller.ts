@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { RoleService } from '~/module/role/role.service';
 import { CreateRoleDto } from '~/module/role/dto/create.role.dto';
+import { SearchRoleDto } from '~/module/role/dto/search.role.dto';
+import { UpdateRoleDto } from '~/module/role/dto/update.role.dto';
 
 @ApiTags('Role - 角色管理')
 @Controller({
@@ -16,28 +18,24 @@ export class RoleController {
 
     @Get('list')
     @ApiOperation({ summary: '角色列表' })
-    list() {
-        // TODO 待完成的 service
-        return [];
+    async list(@Query() search: SearchRoleDto) {
+        return this.RoleService.getList(search);
     }
 
     @Post('add')
     @ApiOperation({ summary: '创建角色' })
-    add(@Body() dto: CreateRoleDto) {
-        // TODO 待完成的 service
-        return dto;
+    async add(@Body() dto: CreateRoleDto) {
+        await this.RoleService.createRole(dto);
     }
 
     @Put(':rid')
-    update(@Param('rid') rid: number) {
-        // TODO 待完成的 service
-        return rid;
+    async update(@Param('rid') rid: number, @Body() dto: UpdateRoleDto) {
+        await this.RoleService.updateRole(rid, dto);
     }
 
     @Delete(':rid')
     @ApiOperation({ summary: '角色删除' })
-    roleDelete(@Param('rid') rid: number) {
-        // TODO 待完成的 service
-        return rid;
+    async roleDelete(@Param('rid') rid: number) {
+        await this.RoleService.deleteRole(rid);
     }
 }
